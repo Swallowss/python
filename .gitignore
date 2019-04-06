@@ -1,1 +1,4 @@
-__pycache__/loopMain.cpython-37.pyc
+
+.vscode
+*.pyc
+build
