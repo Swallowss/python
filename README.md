@@ -1,6 +1,12 @@
 # python
 这是一个python脚本 大方向是按键精灵 控制键盘鼠标 小方向就是暗黑3的键盘宏
 
+引用的python包
+pip install requests
+pip install wxPython
+pip install pynput
+
+
 键位定义
 
 # F2
