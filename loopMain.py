@@ -46,16 +46,20 @@ class loopMain(object):
             if num == 0:
                 tt = time.time()
                 self.blackManLoop()
-                time.sleep(1.5)
-                self.meteorite_one()
+                time.sleep(1)
+                mouse.press(self.myButtonObj.yindao)
+                time.sleep(2.8)  # 刷黄道的时间
+                mouse.release(self.myButtonObj.yindao)
+                self.meteorite_one_attackSpeed()
                 mouse.press(self.myButtonObj.dianxing)
-                time.sleep(1.19)
+                time.sleep(1.6)
                 mouse.release(self.myButtonObj.dianxing)
-                self.meteorite_one()
+                self.meteorite_one_attackSpeed()
+                time.sleep(1.6) # 踩神目的时间
                 mouse.press(self.myButtonObj.dianxing)
-                time.sleep(2.294)
+                time.sleep(1)
                 mouse.release(self.myButtonObj.dianxing)
-                self.meteorite_blackMan()
+                self.meteorite_blackMan_attackSpeed()
                 print("0层勾玉第一次循环历时: ", time.time()-tt)
             else:
                 self.loop_32()
@@ -82,17 +86,40 @@ class loopMain(object):
                 self.meteorite_blackMan()
             self.loop_32_one()
             num += 1
-    
-    # 32s基础循环 两发陨石
+    # 棒棒糖模式
+    def Lollipop(self):
+        tt = time.time() # 启动时间
+        # 启动黑人
+        k.press_key(self.myButtonObj.blackMan) 
+        k.release_key(self.myButtonObj.blackMan)
+        time.sleep(0.1)
+        # 开罩子
+        k.press_key("2")  # 按下黑洞
+        k.release_key("2")
+        time.sleep(0.1)
+        loopFlag = True
+        while loopFlag:
+            k.press_key("1") 
+            k.release_key("1")
+            time.sleep(0.6)
+            print("时间差", time.time()-tt)
+            if time.time()-tt>20:
+                loopFlag = False
+
+    # 32s基础循环 两发陨石  cdr 50.93
     def loop_32(self):
         tt = time.time()
-        self.blackManLoop()
-        time.sleep(1.5)
-        self.meteorite_one()
+        self.blackManLoop() # 黑人循环
+        time.sleep(0.1)
+        mouse.press(self.myButtonObj.yindao)
+        time.sleep(2.8)  # 刷黄道的时间
+        mouse.release(self.myButtonObj.yindao)
+        self.meteorite_one_attackSpeed() # 单黑陨石
+        time.sleep(1.6) # 踩神目的时间
         mouse.press(self.myButtonObj.dianxing)
-        time.sleep(2.094)
+        time.sleep(1)
         mouse.release(self.myButtonObj.dianxing)
-        self.meteorite_blackMan()
+        self.meteorite_blackMan_attackSpeed()  # 双黑陨石
         print("32s带勾玉循环历时: ", time.time()-tt)
     
     # 32s基础循环 一发陨石
@@ -110,9 +137,6 @@ class loopMain(object):
     def meteorite_one(self):
         tt = time.time()
         k.press_key(' ')  # 强制站立
-        k.press_key(self.myButtonObj.blackHole)  # 按下黑洞
-        k.release_key(self.myButtonObj.blackHole)
-        time.sleep(0.5)
         k.press_key(self.myButtonObj.yuanlibo)
         k.release_key(self.myButtonObj.yuanlibo)
         time.sleep(0.5)
@@ -133,6 +157,30 @@ class loopMain(object):
         k.release_key(' ')  # 强制站立
         print("单发陨石历时: ", time.time()-tt)
 
+    # 有额外攻速--单发陨石-带黑洞  黑洞-原力波-电刑-陨石-电刑-引导 持续时间3.305s
+    def meteorite_one_attackSpeed(self):
+        tt = time.time()
+        k.press_key(' ')  # 强制站立
+        k.press_key(self.myButtonObj.yuanlibo)
+        k.release_key(self.myButtonObj.yuanlibo)
+        time.sleep(0.3)
+        # 电刑5发
+        mouse.press(self.myButtonObj.dianxing)
+        time.sleep(1.5)
+        mouse.release(self.myButtonObj.dianxing)
+        time.sleep(0.05)
+        k.press_key(self.myButtonObj.meteorite)
+        time.sleep(0.05)
+        k.release_key(self.myButtonObj.meteorite)
+        mouse.press(self.myButtonObj.dianxing)
+        time.sleep(1)
+        mouse.release(self.myButtonObj.dianxing)
+        mouse.press(self.myButtonObj.yindao)
+        time.sleep(0.4)
+        mouse.release(self.myButtonObj.yindao)
+        k.release_key(' ')  # 强制站立
+        print("单发陨石历时--攻速: ", time.time()-tt)
+
     # 黑人20s循环 持续时间20.06s
     def blackManLoop(self):
         tt = time.time()
@@ -146,13 +194,36 @@ class loopMain(object):
             n -= 1
         print("黑人循环历时: ", time.time()-tt)
 
+    # 有额外攻速--黑人增伤的陨石 持续3.1762
+    def meteorite_blackMan_attackSpeed(self):
+        tt = time.time()
+        k.press_key(' ')  # 强制站立
+        k.press_key(self.myButtonObj.yuanlibo)
+        k.release_key(self.myButtonObj.yuanlibo)
+        time.sleep(0.3)
+        # 电刑5发
+        mouse.press(self.myButtonObj.dianxing)
+        time.sleep(1.5)
+        mouse.release(self.myButtonObj.dianxing)
+        time.sleep(0.05)
+        k.press_key(self.myButtonObj.meteorite)
+        time.sleep(0.05)
+        k.release_key(self.myButtonObj.meteorite)
+        mouse.press(self.myButtonObj.dianxing)
+        time.sleep(1.15)
+        mouse.release(self.myButtonObj.dianxing)
+        mouse.press(self.myButtonObj.yindao)
+        time.sleep(0.12)
+        k.press_key(self.myButtonObj.blackMan)
+        k.release_key(self.myButtonObj.blackMan)
+        mouse.release(self.myButtonObj.yindao)
+        k.release_key(' ')  # 强制站立
+        print("双黑陨石历时--攻速: ", time.time()-tt)
+
     # 黑人增伤的陨石 持续4.1267
     def meteorite_blackMan(self):
         tt = time.time()
         k.press_key(' ')  # 强制站立
-        k.press_key(self.myButtonObj.blackHole)  # 按下黑洞
-        k.release_key(self.myButtonObj.blackHole)
-        time.sleep(0.5)
         k.press_key(self.myButtonObj.yuanlibo)
         k.release_key(self.myButtonObj.yuanlibo)
         time.sleep(0.5)

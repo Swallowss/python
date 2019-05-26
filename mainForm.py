@@ -92,7 +92,7 @@ class MyFrame1 ( wx.Frame ):
 
 		bSizer10 = wx.BoxSizer( wx.HORIZONTAL )
 
-		self.modeFlag = wx.CheckBox( self, wx.ID_ANY, u"是否四人模式", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.modeFlag = wx.CheckBox( self, wx.ID_ANY, u"棒棒糖", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.modeFlag.SetValue(True)
 		bSizer10.Add( self.modeFlag, 0, wx.ALL, 5 )
 

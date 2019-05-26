@@ -1,11 +1,12 @@
 
+import time
 import threading
 from pynput import keyboard
 from loopMain import *
 from stopThread import *
 from myButtonObj import *
 t = None  
-
+beginTime=None
 
 #奥元素0-4s开 满勾玉循环-黑人起手 (两发陨石)
 fullLoopBtn=keyboard.Key.f2
@@ -15,10 +16,9 @@ zeroLoopBtn=keyboard.Key.f3
 meteorite_fullLoopBtn=keyboard.Key.f4
 
 
-# 双人 火3.5-电3开 满勾玉循环-陨石起手 (一发陨石)
-doubleMode_meteorite_fullLoopBtn=keyboard.Key.f2
-# 双人 野外原力波 黑人一发陨石 
-doubleMode_meteorite_outSetOneBtn=keyboard.Key.f3
+# 棒棒糖模式  一键黑人+开罩子+0.6s一次一技能
+Lollipop=keyboard.Key.f2
+
 
 
 class keyListener(object):
@@ -33,7 +33,7 @@ class keyListener(object):
         st=stopThread()
         global t
 
-        if self.myButtonObj.modeFlag:
+        if not self.myButtonObj.modeFlag:
             if key==fullLoopBtn:
                 if t is not None:
                     try:
@@ -77,7 +77,19 @@ class keyListener(object):
                     t = threading.Thread(target=lm.meteorite_fullLoop, args=([30]))
                     t.start()
         else:   
-            if key==doubleMode_meteorite_fullLoopBtn:
+           # 棒棒糖模式
+            if key==Lollipop:
+                global beginTime
+                if beginTime is not None:
+                    print(time.time()-beginTime)
+                    if time.time()-beginTime>21:
+                       t = None
+                       beginTime=time.time()
+                    else:
+                        beginTime = None
+                else:
+                    beginTime=time.time()
+                
                 if t is not None:
                     try:
                         st.stop_thread(t)
@@ -89,23 +101,8 @@ class keyListener(object):
                         print("宏已关闭")
                         t = None
                 else:
-                    t = threading.Thread(target=lm.doubleMode_meteorite_fullLoop, args=([30]))
+                    t = threading.Thread(target=lm.Lollipop)
                     t.start()
-            elif key==doubleMode_meteorite_outSetOneBtn:
-                if t is not None:
-                    try:
-                        st.stop_thread(t)
-                    except:
-                        print("宏已关闭")
-                        print("线程已结束")
-                        t = None
-                    else:
-                        print("宏已关闭")
-                        t = None
-                else:
-                    t = threading.Thread(target=lm.meteorite_outSetOneLoop, args=([30]))
-                    t.start()
-            
         
         if key==keyboard.Key.f11:
             if t is not None:
